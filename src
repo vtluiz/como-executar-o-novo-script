@@ -1,0 +1,55 @@
+# src/plot_category_distribution.py
+
+import pandas as pd
+import matplotlib.pyplot as plt
+import os
+
+def main():
+    # Dados fornecidos (como uma lista de dicionários)
+    data = [
+        {"product": "credit_card", "narrative": "purchase order day shipping amount receive..."},
+        {"product": "credit_card", "narrative": "forwarded message date tue subject please investigate..."},
+        {"product": "retail_banking", "narrative": "forwarded message cc sent friday pdt subject final legal payment..."},
+        {"product": "credit_reporting", "narrative": "payment history missing credit report specialized loan servicing..."},
+        {"product": "credit_reporting", "narrative": "payment history missing credit report made mistake put account..."},
+        {"product": "credit_reporting", "narrative": "va date complaint experian credit bureau involved decision maker..."},
+        {"product": "credit_reporting", "narrative": "account reported abbreviated name full name servicer account..."},
+        {"product": "credit_reporting", "narrative": "account reported abbreviated name full name servicer account..."},
+        {"product": "credit_reporting", "narrative": "usdoexxxx account reported abbreviated name full name servicer..."},
+        {"product": "mortgages_and_loans", "narrative": "beginning mortgage held mb financial mb mortgage portfolio..."},
+        {"product": "credit_card", "narrative": "called request new york state covid relief plan day interest..."},
+        {"product": "credit_card", "narrative": "capital one secured credit account opened name closed outstanding balance..."},
+        {"product": "credit_reporting", "narrative": "collection account acct opened balance account acct opened balance..."},
+        {"product": "debt_collection", "narrative": "collection agency system inc mn phone sent letter regarding debt..."},
+        {"product": "mortgages_and_loans", "narrative": "current loan provident funding applied refinance provident funding..."},
+        {"product": "mortgages_and_loans", "narrative": "current loan got deferment paid back credit history yet lost job..."},
+        {"product": "mortgages_and_loans", "narrative": "closed mortgage dovenmuhle mortgage paid full significant remaining balance..."},
+        {"product": "mortgages_and_loans", "narrative": "contacted bank america boa mortgage customer service number spoke representative..."}
+    ]
+
+    # Criar o DataFrame
+    df = pd.DataFrame(data)
+
+    # Contar o número de ocorrências por categoria
+    category_counts = df['product'].value_counts()
+
+    # Criar o diretório output se não existir
+    if not os.path.exists('output'):
+        os.makedirs('output')
+
+    # Criar o gráfico
+    plt.figure(figsize=(10, 6))
+    category_counts.plot(kind='bar', color='skyblue')
+    
+    plt.title('Distribuição de Categorias')
+    plt.xlabel('Categoria')
+    plt.ylabel('Número de Ocorrências')
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+
+    # Salvar o gráfico
+    plt.savefig('output/category_distribution.png')
+    plt.show()
+
+if __name__ == "__main__":
+    main()
